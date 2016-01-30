@@ -31,4 +31,29 @@ class WordsTest < MiniTest::Test
     refute_equal 2, selected_sequences.length
     assert_equal 1, selected_sequences.length
   end
+
+  def test_a_sequences_is_only_four_characters_long
+    @worder.get_sequences
+    short_sequences = @worder.sequences.select {|sequence| sequence.length < 3}
+    assert_equal 4, @worder.sequences.first.length
+    assert_equal 0, short_sequences.length
+  end
+
+  def test_it_returns_word_matches_and_sequences
+    @worder.get_sequences
+    @worder.find_word_matches
+    assert_equal 6, @worder.output_sequence.length
+    assert_equal 6, @worder.output_words.length
+  end
+
+  def test_it_returns_word_matches_and_sequences_in_correct_order
+    @worder.get_sequences
+    @worder.find_word_matches
+    first_sequence = @worder.output_sequence.first
+    last_sequence = @worder.output_sequence.last
+    assert_equal true, @worder.output_words.first.include?(first_sequence)
+    refute_equal true, @worder.output_words.first.include?(last_sequence)
+    assert_equal true, @worder.output_words.last.include?(last_sequence)
+    refute_equal true, @worder.output_words.last.include?(first_sequence)
+  end
 end
