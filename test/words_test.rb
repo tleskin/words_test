@@ -11,8 +11,6 @@ class WordsTest < MiniTest::Test
   end
 
   def teardown
-    # File.open("test/words.txt", 'w') {}
-    # File.open("test/words.txt", 'w') {}
     File.truncate("test/sequences.txt", 0)
     File.truncate("test/words.txt", 0)
   end
