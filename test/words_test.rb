@@ -5,7 +5,16 @@ require_relative '../lib/words'
 
 class WordsTest < MiniTest::Test
   def setup
-    @worder = Words.new("test/sample.txt")
+    @worder = Words.new("test/sample.txt",
+                        "test/words.txt",
+                        "test/sequences.txt")
+  end
+
+  def teardown
+    # File.open("test/words.txt", 'w') {}
+    # File.open("test/words.txt", 'w') {}
+    File.truncate("test/sequences.txt", 0)
+    File.truncate("test/words.txt", 0)
   end
 
   def test_it_parses_the_text_after_initialzation
@@ -55,5 +64,23 @@ class WordsTest < MiniTest::Test
     refute_equal true, @worder.output_words.first.include?(last_sequence)
     assert_equal true, @worder.output_words.last.include?(last_sequence)
     refute_equal true, @worder.output_words.last.include?(first_sequence)
+  end
+
+  def test_it_writes_the_sequences_to_a_text_file
+    @worder.get_sequences
+    @worder.find_word_matches
+    @worder.write_sequences
+    sequences = ["rrow", "rows", "carr", "rrot", "rots", "give"]
+    assert_equal sequences, @worder.parser.parse("test/sequences.txt")
+    assert_equal 6, sequences.length
+  end
+
+  def test_it_writes_the_words_to_a_text_file
+    @worder.get_sequences
+    @worder.find_word_matches
+    @worder.write_words
+    words = ["arrows", "arrows", "carrots", "carrots", "carrots", "give"]
+    assert_equal words, @worder.parser.parse("test/words.txt")
+    assert_equal 6, words.length
   end
 end
