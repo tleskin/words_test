@@ -1,15 +1,11 @@
 require_relative 'lib/words'
 
-if ARGV[0].nil? && ARGV[1].nil? && ARGV[2].nil?
-  worder = Words.new("lib/dictionary.txt",
-                      "lib/words.txt",
-                      "lib/sequences.txt")
-else
-  worder = Words.new
-end
+dictionary = File.open("lib/dictionary.txt").read.split(" ")
+sequences_file = "lib/sequences.txt"
+words_file = "lib/words.txt"
 
-worder.get_sequences
-worder.find_word_matches
+worder = Words.new(dictionary, words_file, sequences_file)
+worder.get_sequences_and_words
 worder.write_sequences
 worder.write_words
 puts "Please check 'lib/words.txt' and 'lib/sequences.txt' for words and sequences."
