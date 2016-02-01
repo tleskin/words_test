@@ -6,12 +6,7 @@ require_relative '../lib/words'
 class WordsTest < MiniTest::Test
   def setup
     dictionary = File.open("test/sample.txt").read.split(" ")
-    @worder = Words.new(dictionary,"test/words.txt", "test/sequences.txt")
-  end
-
-  def teardown
-    File.truncate("test/sequences.txt", 0)
-    File.truncate("test/words.txt", 0)
+    @worder = Words.new(dictionary)
   end
 
   def test_it_has_the_dictionary_correctly_parsed_into_an_array
@@ -47,23 +42,5 @@ class WordsTest < MiniTest::Test
     refute_equal true, @worder.sequences.values.first.include?(last_sequence)
     assert_equal true, @worder.sequences.values.last.include?(last_sequence)
     refute_equal true, @worder.sequences.values.last.include?(first_sequence)
-  end
-
-  def test_it_writes_the_sequences_to_a_text_file
-    @worder.get_sequences_and_words
-    @worder.write_sequences
-    sequences = ["rrow", "rows", "carr", "rrot", "rots", "give"]
-    sequences_file = File.open("test/sequences.txt").read.split(" ")
-    assert_equal sequences, sequences_file
-    assert_equal 6, sequences_file.length
-  end
-
-  def test_it_writes_the_words_to_a_text_file
-    @worder.get_sequences_and_words
-    @worder.write_words
-    words = ["arrows", "arrows", "carrots", "carrots", "carrots", "give"]
-    words_file = File.open("test/words.txt").read.split(" ")
-    assert_equal words, words_file
-    assert_equal 6, words_file.length
   end
 end

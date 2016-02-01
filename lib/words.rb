@@ -1,14 +1,9 @@
 class Words
   attr_accessor :sequences,
-                :words,
-                :sequences_file,
-                :words_file,
                 :dictionary
 
-  def initialize(dictionary, words_file, sequences_file)
+  def initialize(dictionary)
     @dictionary = dictionary
-    @words_file = words_file
-    @sequences_file = sequences_file
     @sequences = {}
   end
 
@@ -23,18 +18,6 @@ class Words
           sequences.delete(sequence)
         end
       end
-    end
-  end
-
-  def write_sequences
-    File.open( sequences_file, "w") do |f|
-        sequences.keys.each { |sequence| f.puts(sequence) }
-    end
-  end
-
-  def write_words
-    File.open( words_file, "w") do |f|
-      sequences.values.each { |word| f.puts(word) }
     end
   end
 end

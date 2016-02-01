@@ -6,6 +6,7 @@ words_file = "lib/words.txt"
 
 worder = Words.new(dictionary, words_file, sequences_file)
 worder.get_sequences_and_words
-worder.write_sequences
-worder.write_words
+writer = Writer.new(worder.sequences, words_file, sequences_file)
+writer.write_sequences
+writer.write_words
 puts "Please check 'lib/words.txt' and 'lib/sequences.txt' for words and sequences."
