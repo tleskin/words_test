@@ -1,6 +1,5 @@
 class Words
-  attr_accessor :sequences,
-                :dictionary
+  attr_accessor :sequences, :dictionary
 
   def initialize(dictionary)
     @dictionary = dictionary
@@ -12,11 +11,7 @@ class Words
       next if word.length <= 3
       next unless word =~ /\A[A-Za-z]+\z/
       word.chars.each_cons(4).map(&:join).each do |sequence|
-        if !sequences.key?(sequence)
-          sequences[sequence] = word
-        else
-          sequences.delete(sequence)
-        end
+        !sequences.key?(sequence) ? sequences[sequence] = word :sequences.delete(sequence)
       end
     end
   end
