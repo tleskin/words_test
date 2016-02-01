@@ -11,7 +11,7 @@ class Words
       next if word.length <= 3
       next unless word =~ /\A[A-Za-z]+\z/
       word.chars.each_cons(4).map(&:join).each do |sequence|
-        !sequences.key?(sequence) ? sequences[sequence] = word :sequences.delete(sequence)
+        !sequences.key?(sequence) ? sequences[sequence] = word : sequences.delete(sequence)
       end
     end
   end
