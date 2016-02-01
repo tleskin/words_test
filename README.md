@@ -10,11 +10,6 @@ To run, from the terminal run:
 
 `ruby runner.rb`
 
-If you want to specify the dictionary as well as the output files for the words
-and sequences, from the terminal run:
-
-`ruby runner.rb path/dictonary.txt path/words.txt path/sequences.txt`
-
 ##### Running the test suite
 
 There is a full test suite for the exercise written with MiniTest. To run the
