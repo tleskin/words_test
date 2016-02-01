@@ -10,9 +10,13 @@ class Words
     @dictionary.each do |word|
       next if word.length <= 3
       next unless word =~ /\A[A-Za-z]+\z/
-      word.chars.each_cons(4).map(&:join).each do |sequence|
-        !sequences.key?(sequence) ? sequences[sequence] = word : sequences.delete(sequence)
-      end
+      analyzer(word)
+    end
+  end
+
+  def analyzer(word)
+    word.chars.each_cons(4).map(&:join).each do |sequence|
+      !sequences.key?(sequence) ? sequences[sequence] = word : sequences.delete(sequence)
     end
   end
 end
