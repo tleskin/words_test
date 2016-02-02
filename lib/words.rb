@@ -1,9 +1,10 @@
 class Words
-  attr_accessor :sequences, :dictionary
+  attr_accessor :sequences, :dictionary, :duplicates
 
   def initialize(dictionary)
     @dictionary = dictionary
     @sequences = {}
+    @duplicates = {}
   end
 
   def get_sequences_and_words
@@ -16,7 +17,14 @@ class Words
 
   def analyzer(word)
     word.chars.each_cons(4).map(&:join).each do |sequence|
-      !sequences.key?(sequence) ? sequences[sequence] = word : sequences.delete(sequence)
+      if duplicates.key?(sequence)
+        sequences.delete(sequence)
+      elsif !sequences.key?(sequence)
+        sequences[sequence] = word
+      elsif sequences.key?(sequence)
+        duplicates[sequence] = word
+        sequences.delete(sequence)
+      end
     end
   end
 end
